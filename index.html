@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Core</title>
+    <style>
+        :root {
+            --bg-primary: #0a0c10;
+            --bg-secondary: #12161f;
+            --accent-color: #00ff88;
+            --text-main: #e6edf3;
+            --text-dim: #8b949e;
+            --border-color: #30363d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .status-badge {
+            background-color: rgba(0, 255, 136, 0.1);
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            border: 1px solid var(--accent-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 6px;
+        }
+
+        .card h3 {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .console-output {
+            background-color: #000;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px;
+            font-family: monospace;
+            height: 150px;
+            overflow-y: auto;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>System Dashboard</h1>
+            <span class="status-badge">ONLINE</span>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <h3>CONNECTION</h3>
+                <p id="connection-status">Active</p>
+            </div>
+            <div class="card">
+                <h3>LATENCY</h3>
+                <p id="latency-val">12 ms</p>
+            </div>
+            <div class="card">
+                <h3>LOAD</h3>
+                <p id="load-val">1.2%</p>
+            </div>
+        </div>
+
+        <div class="console-output" id="log-output">
+            [+] Initializing GitHub Pages interface...<br>
+            [+] WebSockets connected.<br>
+            [+] Ready for commands.
+        </div>
+
+        <button class="btn" onclick="triggerAction()">Execute Refresh</button>
+    </div>
+
+    <script>
+        function logMessage(msg) {
+            const consoleEl = document.getElementById('log-output');
+            const timestamp = new Date().toLocaleTimeString();
+            consoleEl.innerHTML += `<br>[${timestamp}] ${msg}`;
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        function triggerAction() {
+            logMessage("Manual trigger executed.");
+            const ping = Math.floor(Math.random() * 20) + 5;
+            document.getElementById('latency-val').innerText = ping + " ms";
+        }
+    </script>
+</body>
+</html>
